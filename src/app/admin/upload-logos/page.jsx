@@ -38,13 +38,20 @@ const UploadLogosPage = () => {
     const storage = getStorage();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            if (!currentUser) {
-                router.push("/");
-                return;
-            }
+        let isMounted = true;
 
+        const checkAuth = async () => {
             try {
+                if (auth.authStateReady) {
+                    await auth.authStateReady();
+                }
+
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    if (isMounted) router.push("/login?redirect=/admin/upload-logos");
+                    return;
+                }
+
                 const token = await currentUser.getIdToken();
                 const res = await fetch("/api/admin/verify", {
                     method: "POST",
@@ -54,20 +61,33 @@ const UploadLogosPage = () => {
                     },
                 });
 
+                if (!isMounted) return;
+
                 if (res.ok) {
                     setUser(currentUser);
                     fetchLogos();
                     setIsCheckingAuth(false);
                 } else {
-                    router.push("/");
+                    router.push("/?error=not_admin");
                 }
             } catch (error) {
                 console.error("Admin verification failed:", error);
-                router.push("/");
+                if (isMounted) router.push("/login");
+            }
+        };
+
+        checkAuth();
+
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (!currentUser && isMounted) {
+                router.push("/login?redirect=/admin/upload-logos");
             }
         });
 
-        return () => unsubscribe();
+        return () => {
+            isMounted = false;
+            unsubscribe();
+        };
     }, [router]);
 
     const fetchLogos = async () => {
@@ -130,18 +150,11 @@ const UploadLogosPage = () => {
         if (!confirm(`Are you sure you want to delete the logo for ${logo.name}?`)) return;
 
         try {
-            // Delete from Storage
-            // Extract path from URL or store path in Firestore. 
-            // Since we didn't store path, we can try to extract it or just delete the doc if we can't easily get the ref.
-            // However, it's better to try to delete the file.
-            // URL format: https://firebasestorage.googleapis.com/v0/b/[bucket]/o/[path]?alt=media...
-            // We can create a ref from the URL.
             const imageRef = ref(storage, logo.imageUrl);
             await deleteObject(imageRef).catch((error) => {
                 console.warn("Failed to delete image from storage (might not exist):", error);
             });
 
-            // Delete from Firestore
             await deleteDoc(doc(db, "companyLogos", logo.id));
 
             toast.success("Logo deleted successfully!");
@@ -175,7 +188,11 @@ const UploadLogosPage = () => {
                     <div className="flex items-center gap-4">
                         <span className="text-gray-600">Admin: {user?.email}</span>
                         <button
-                            onClick={() => signOut(auth)}
+                            onClick={async () => {
+                                await signOut(auth);
+                                localStorage.removeItem("user");
+                                router.push("/");
+                            }}
                             className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
                         >
                             Logout

@@ -1,13 +1,14 @@
 import { verifyIdToken } from '@/lib/firebase-admin';
+import { isUserAdmin } from '@/lib/authMiddleware';
 import { NextResponse } from 'next/server';
 
 /**
  * POST /api/admin/verify
  * 
  * Server-side admin verification endpoint.
- * Verifies that the caller has a valid Firebase token AND is the admin user.
+ * Verifies that the caller has a valid Firebase token AND is an authorized admin.
  * 
- * Returns: { isAdmin: true } or 401/403 error
+ * Returns: { isAdmin: true, email: string, uid: string } or 401/403 error
  */
 export async function POST(req) {
     const authHeader = req.headers.get('authorization');
@@ -23,17 +24,10 @@ export async function POST(req) {
 
     try {
         const decodedToken = await verifyIdToken(token);
-        const adminEmail = process.env.ADMIN_EMAIL;
+        const isAdmin = await isUserAdmin(decodedToken);
 
-        if (!adminEmail) {
-            console.error('ADMIN_EMAIL not set in environment variables');
-            return NextResponse.json(
-                { error: 'Server configuration error' },
-                { status: 500 }
-            );
-        }
-
-        if (decodedToken.email !== adminEmail) {
+        if (!isAdmin) {
+            console.warn(`Admin access denied for email: ${decodedToken.email} (UID: ${decodedToken.uid})`);
             return NextResponse.json(
                 { error: 'Forbidden: Not an admin user' },
                 { status: 403 }

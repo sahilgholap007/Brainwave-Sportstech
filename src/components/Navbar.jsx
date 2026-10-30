@@ -1,13 +1,19 @@
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { ChevronDown, ShoppingCart, Package, Menu, X } from "lucide-react";
+import { ChevronDown, ShoppingCart, Package, Menu, X, Shield } from "lucide-react";
 import { auth } from "../firebase/firebaseconfig";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import Router from "next/router";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/app/contexts/CartContext";
+
+const adminEmails = [
+  'admin@brainwavesportstech.com',
+  'gholapsahil007@gmail.com',
+  'brainwavesportstech@gmail.com',
+  'sahil.gholap007@gmail.com'
+];
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -16,11 +22,11 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHomePage, setIsHomePage] = useState(false);
   const [isOtherServicesOpen, setIsOtherServicesOpen] = useState(false);
   const { cart } = useCart();
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -29,13 +35,6 @@ const Navbar = () => {
       return () => clearTimeout(timer);
     }
   }, [cart.length]);
-
-  useEffect(() => {
-    setIsHomePage(window.location.pathname === "/");
-    const handleRouteChange = (url) => setIsHomePage(url === "/");
-    Router.events.on("routeChangeStart", handleRouteChange);
-    return () => Router.events.off("routeChangeStart", handleRouteChange);
-  }, []);
 
   useEffect(() => {
     if (isHomePage) {
@@ -48,18 +47,47 @@ const Navbar = () => {
   }, [isHomePage]);
 
   useEffect(() => {
+    // 1. Check local storage cache on mount to avoid auth button flash
+    try {
+      const stored = localStorage.getItem("user");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && (parsed.displayName || parsed.email)) {
+          setIsLoggedIn(true);
+          setUserInfo({
+            displayName: parsed.displayName || parsed.email?.split("@")[0] || "User",
+            photoURL: parsed.photoURL || null,
+            email: parsed.email || null,
+          });
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    // 2. Synchronize with Firebase Auth
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setIsLoggedIn(true);
-        setUserInfo({
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-        });
+        const info = {
+          displayName: user.displayName || user.email?.split("@")[0] || "User",
+          photoURL: user.photoURL || null,
+          email: user.email || null,
+          uid: user.uid,
+        };
+        setUserInfo(info);
+        try {
+          localStorage.setItem("user", JSON.stringify(info));
+        } catch (e) {}
       } else {
         setIsLoggedIn(false);
         setUserInfo(null);
+        try {
+          localStorage.removeItem("user");
+        } catch (e) {}
       }
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -85,6 +113,8 @@ const Navbar = () => {
       console.error("Error during logout:", error);
     }
   };
+
+  const isAdmin = isLoggedIn && userInfo?.email && adminEmails.includes(userInfo.email.toLowerCase());
 
   return (
     <nav
@@ -263,6 +293,17 @@ const Navbar = () => {
                   My Orders
                 </Link>
 
+                {isAdmin && (
+                  <Link
+                    href="/admin/dashboard"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600/20 text-purple-300 hover:bg-purple-600/30 hover:text-white border border-purple-500/30 text-sm font-medium transition-colors"
+                    onClick={handleLinkClick}
+                  >
+                    <Shield size={16} />
+                    Admin Panel
+                  </Link>
+                )}
+
                 <div className="h-6 w-px bg-gray-700 mx-2"></div>
 
                 <div className="flex items-center gap-3 relative group">
@@ -358,78 +399,72 @@ const Navbar = () => {
             </Link>
 
             {/* Mobile About Dropdown */}
-            <div>
+            <div className="space-y-1">
               <button
-                onClick={() => setIsAboutDropdownOpen(!isAboutDropdownOpen)}
-                className={`w-full flex items-center justify-between px-3 py-3 rounded-lg text-base font-medium ${pathname?.startsWith('/about') ? "text-white bg-slate-800" : "text-gray-300 hover:text-white hover:bg-slate-800"}`}
+                onClick={toggleAboutDropdown}
+                className="w-full flex items-center justify-between px-3 py-3 rounded-lg text-base font-medium text-gray-300 hover:text-white hover:bg-slate-800"
               >
                 About
-                <ChevronDown size={20} className={`transition-transform duration-200 ${isAboutDropdownOpen ? "rotate-180" : ""}`} />
+                <ChevronDown size={16} className={`transition-transform duration-200 ${isAboutDropdownOpen ? "rotate-180" : ""}`} />
               </button>
-              <div className={`mt-1 ml-4 space-y-1 overflow-hidden transition-all duration-300 ${isAboutDropdownOpen ? "max-h-48" : "max-h-0"}`}>
-                <Link href="/about/Brainwave" className={`block px-3 py-2 rounded-lg text-sm font-medium ${pathname === '/about/Brainwave' ? "text-[#f39c12] bg-slate-800" : "text-gray-400 hover:text-white hover:bg-slate-800"}`} onClick={handleLinkClick}>
-                  Brainwave SportsTech
-                </Link>
-                <Link href="/about/AIPA" className={`block px-3 py-2 rounded-lg text-sm font-medium ${pathname === '/about/AIPA' ? "text-[#f39c12] bg-slate-800" : "text-gray-400 hover:text-white hover:bg-slate-800"}`} onClick={handleLinkClick}>
-                  AIPA
-                </Link>
-                <Link href="/about/Our-Lab" className={`block px-3 py-2 rounded-lg text-sm font-medium ${pathname === '/about/Our-Lab' ? "text-[#f39c12] bg-slate-800" : "text-gray-400 hover:text-white hover:bg-slate-800"}`} onClick={handleLinkClick}>
-                  Our Tech Visionary
-                </Link>
-              </div>
+              {isAboutDropdownOpen && (
+                <div className="pl-4 space-y-1 bg-slate-950/50 py-2 rounded-lg">
+                  <Link href="/about/Brainwave" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                    Brainwave SportsTech
+                  </Link>
+                  <Link href="/about/AIPA" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                    AIPA
+                  </Link>
+                  <Link href="/about/Our-Lab" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                    Our Tech Visionary
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Mobile Services Dropdown */}
-            <div>
+            <div className="space-y-1">
               <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className={`w-full flex items-center justify-between px-3 py-3 rounded-lg text-base font-medium ${(pathname?.startsWith('/services') || pathname?.startsWith('/forms')) ? "text-white bg-slate-800" : "text-gray-300 hover:text-white hover:bg-slate-800"}`}
+                onClick={toggleDropdown}
+                className="w-full flex items-center justify-between px-3 py-3 rounded-lg text-base font-medium text-gray-300 hover:text-white hover:bg-slate-800"
               >
                 Services
-                <ChevronDown size={20} className={`transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
+                <ChevronDown size={16} className={`transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
               </button>
-              <div className={`mt-1 ml-4 space-y-1 overflow-hidden transition-all duration-300 ${isDropdownOpen ? "max-h-[500px]" : "max-h-0"}`}>
-                <Link href="/forms/pickle-ball-testing" className={`block px-3 py-2 rounded-lg text-sm font-bold ${pathname?.startsWith('/forms/pickle-ball-testing') ? "text-[#f39c12] bg-slate-800 bg-opacity-50" : "text-[#f39c12] hover:bg-slate-800"}`} onClick={handleLinkClick}>
-                  Pickleball Ball Testing
-                </Link>
-                <Link href="/forms/pickle-ball-paddle-testing" className={`block px-3 py-2 rounded-lg text-sm font-bold ${pathname?.startsWith('/forms/pickle-ball-paddle-testing') ? "text-[#f39c12] bg-slate-800 bg-opacity-50" : "text-[#f39c12] hover:bg-slate-800"}`} onClick={handleLinkClick}>
-                  Pickleball Paddle Testing
-                </Link>
-                <Link href="/forms/court-certification" className={`block px-3 py-2 rounded-lg text-sm font-bold ${pathname?.startsWith('/forms/court-certification') ? "text-[#f39c12] bg-slate-800 bg-opacity-50" : "text-[#f39c12] hover:bg-slate-800"}`} onClick={handleLinkClick}>
-                  Court Certification
-                </Link>
-                <Link href="/forms/sports-flooring-certification" className={`block px-3 py-2 rounded-lg text-sm font-bold ${pathname?.startsWith('/forms/sports-flooring-certification') ? "text-[#f39c12] bg-slate-800 bg-opacity-50" : "text-[#f39c12] hover:bg-slate-800"}`} onClick={handleLinkClick}>
-                  Sports Flooring Certification
-                </Link>
-
-                {/* Mobile Nested Other Services */}
-                <div>
-                  <button
-                    onClick={() => setIsOtherServicesOpen(!isOtherServicesOpen)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium mt-2 ${pathname?.startsWith('/services/') ? "text-white bg-slate-800" : "text-gray-400 hover:text-white hover:bg-slate-800"}`}
-                  >
-                    Other Services
-                    <ChevronDown size={16} className={`transition-transform duration-200 ${isOtherServicesOpen ? "rotate-180" : ""}`} />
-                  </button>
-                  <div className={`mt-1 ml-4 space-y-1 border-l border-slate-700 overflow-hidden transition-all duration-300 ${isOtherServicesOpen ? "max-h-64" : "max-h-0"}`}>
-                    <Link href="/services/testing-and-certification/" className={`block pl-4 pr-3 py-2 text-sm transition-colors ${pathname?.startsWith('/services/testing-and-certification') ? "text-[#f39c12]" : "text-gray-400 hover:text-[#f39c12]"}`} onClick={handleLinkClick}>
+              {isDropdownOpen && (
+                <div className="pl-4 space-y-1 bg-slate-950/50 py-2 rounded-lg">
+                  <Link href="/forms/pickle-ball-testing/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                    Pickleball Ball Testing
+                  </Link>
+                  <Link href="/forms/pickle-ball-paddle-testing/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                    Pickleball Paddle Testing
+                  </Link>
+                  <Link href="/forms/court-certification/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                    Court Certification
+                  </Link>
+                  <Link href="/forms/sports-flooring-certification/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                    Sports Flooring Certification
+                  </Link>
+                  <div className="pt-2 border-t border-slate-800">
+                    <span className="block px-3 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">Other Services</span>
+                    <Link href="/services/testing-and-certification/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
                       Testing and Certification
                     </Link>
-                    <Link href="/services/failure-analysis/" className={`block pl-4 pr-3 py-2 text-sm transition-colors ${pathname?.startsWith('/services/failure-analysis') ? "text-[#f39c12]" : "text-gray-400 hover:text-[#f39c12]"}`} onClick={handleLinkClick}>
+                    <Link href="/services/failure-analysis/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
                       Failure Analysis
                     </Link>
-                    <Link href="/services/research-and-development/" className={`block pl-4 pr-3 py-2 text-sm transition-colors ${pathname?.startsWith('/services/research-and-development') ? "text-[#f39c12]" : "text-gray-400 hover:text-[#f39c12]"}`} onClick={handleLinkClick}>
+                    <Link href="/services/research-and-development/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
                       Research and Development
                     </Link>
-                    <Link href="/services/construction-and-certification/" className={`block pl-4 pr-3 py-2 text-sm transition-colors ${pathname?.startsWith('/services/construction-and-certification') ? "text-[#f39c12]" : "text-gray-400 hover:text-[#f39c12]"}`} onClick={handleLinkClick}>
+                    <Link href="/services/construction-and-certification/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
                       Court Construction
                     </Link>
-                    <Link href="/services/project-management/" className={`block pl-4 pr-3 py-2 text-sm transition-colors ${pathname?.startsWith('/services/project-management') ? "text-[#f39c12]" : "text-gray-400 hover:text-[#f39c12]"}`} onClick={handleLinkClick}>
+                    <Link href="/services/project-management/" className="block px-3 py-2 rounded-md text-sm text-gray-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
                       Project Management
                     </Link>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <Link href="/blogs" className={`block px-3 py-3 rounded-lg text-base font-medium ${pathname?.startsWith('/blogs') ? "text-white bg-slate-800" : "text-gray-300 hover:text-white hover:bg-slate-800"}`} onClick={handleLinkClick}>
@@ -471,6 +506,11 @@ const Navbar = () => {
                   <Link href="/my-orders" className="block px-3 py-3 rounded-lg text-base font-medium text-gray-300 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
                     My Orders
                   </Link>
+                  {isAdmin && (
+                    <Link href="/admin/dashboard" className="block px-3 py-3 rounded-lg text-base font-medium text-purple-400 hover:text-white hover:bg-slate-800" onClick={handleLinkClick}>
+                      Admin Panel
+                    </Link>
+                  )}
                 </>
               )}
             </div>
@@ -490,4 +530,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

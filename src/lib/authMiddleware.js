@@ -1,4 +1,58 @@
-import { verifyIdToken } from './firebase-admin';
+import { verifyIdToken, getAdminDb } from './firebase-admin';
+
+/**
+ * Check if a decoded token belongs to an authorized admin.
+ * Evaluates custom claims, admin email whitelist (including env variables),
+ * and Firestore user role.
+ * 
+ * @param {object} decodedToken - Decoded Firebase ID token
+ * @returns {Promise<boolean>}
+ */
+export async function isUserAdmin(decodedToken) {
+    if (!decodedToken) return false;
+
+    // 1. Check custom claims
+    if (decodedToken.admin === true || decodedToken.role === 'admin') {
+        return true;
+    }
+
+    const email = decodedToken.email?.trim().toLowerCase();
+
+    // 2. Check ADMIN_EMAIL env list (comma-separated or single)
+    const envEmails = (process.env.ADMIN_EMAIL || '')
+        .split(',')
+        .map((e) => e.trim().toLowerCase())
+        .filter(Boolean);
+
+    // Default admin fallbacks for the project
+    const defaultAdmins = [
+        'admin@brainwavesportstech.com',
+        'gholapsahil007@gmail.com',
+        'brainwavesportstech@gmail.com',
+        'sahil.gholap007@gmail.com',
+    ];
+
+    const allAllowedEmails = new Set([...envEmails, ...defaultAdmins]);
+
+    if (email && allAllowedEmails.has(email)) {
+        return true;
+    }
+
+    // 3. Check Firestore `users` collection for `role: 'admin'`
+    if (decodedToken.uid) {
+        try {
+            const db = getAdminDb();
+            const userDoc = await db.collection('users').doc(decodedToken.uid).get();
+            if (userDoc.exists && userDoc.data()?.role === 'admin') {
+                return true;
+            }
+        } catch (error) {
+            console.warn('Error verifying admin role in Firestore:', error.message);
+        }
+    }
+
+    return false;
+}
 
 /**
  * Verify the Firebase auth token from the request's Authorization header.
@@ -44,8 +98,8 @@ export async function verifyAdmin(req) {
     const authResult = await verifyAuth(req);
     if (authResult instanceof Response) return authResult;
 
-    const adminEmail = process.env.ADMIN_EMAIL;
-    if (!adminEmail || authResult.email !== adminEmail) {
+    const isAdmin = await isUserAdmin(authResult);
+    if (!isAdmin) {
         return new Response(
             JSON.stringify({ error: 'Forbidden: Admin access required' }),
             { status: 403, headers: { 'Content-Type': 'application/json' } }

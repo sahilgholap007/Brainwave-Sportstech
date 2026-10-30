@@ -17,43 +17,76 @@ export default function AdminDashboardLayout({ children }) {
     const pathname = usePathname()
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            if (!currentUser) {
-                router.push("/")
-                return
-            }
+        let isMounted = true;
 
+        const checkAdminAuth = async () => {
             try {
+                // Wait for Firebase Auth persistence to restore from IndexedDB
+                if (auth.authStateReady) {
+                    await auth.authStateReady();
+                }
+
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    if (isMounted) {
+                        const redirectPath = pathname ? `/login?redirect=${encodeURIComponent(pathname)}` : "/login";
+                        router.push(redirectPath);
+                    }
+                    return;
+                }
+
                 // Server-side admin verification
-                const token = await currentUser.getIdToken()
+                const token = await currentUser.getIdToken();
                 const res = await fetch("/api/admin/verify", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                })
+                });
+
+                if (!isMounted) return;
 
                 if (res.ok) {
-                    setUser(currentUser)
-                    setIsCheckingAuth(false)
+                    setUser(currentUser);
+                    setIsCheckingAuth(false);
                 } else {
-                    // Server rejected — not admin
-                    router.push("/")
+                    // Server rejected — authenticated user is not an admin
+                    console.warn("User is not an authorized admin, redirecting to home");
+                    router.push("/?error=not_admin");
                 }
             } catch (error) {
-                console.error("Admin verification failed:", error)
-                router.push("/")
+                console.error("Admin verification failed:", error);
+                if (isMounted) {
+                    router.push("/login");
+                }
             }
-        })
+        };
 
-        return () => unsubscribe()
-    }, [router])
+        checkAdminAuth();
+
+        // Listen for sign-out from other tabs or actions
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (!currentUser && isMounted) {
+                router.push(`/login?redirect=${encodeURIComponent(pathname || "/admin/dashboard")}`);
+            }
+        });
+
+        return () => {
+            isMounted = false;
+            unsubscribe();
+        };
+    }, [router, pathname]);
 
     const handleLogout = async () => {
-        await signOut(auth)
-        router.push("/")
-    }
+        try {
+            await signOut(auth);
+            localStorage.removeItem("user");
+        } catch (error) {
+            console.error("Logout error:", error);
+        }
+        router.push("/");
+    };
 
     const navItems = [
         {
@@ -101,7 +134,7 @@ export default function AdminDashboardLayout({ children }) {
             href: "/admin/aipa-report",
             icon: FileDown,
         },
-    ]
+    ];
 
     if (isCheckingAuth) {
         return (
@@ -111,7 +144,7 @@ export default function AdminDashboardLayout({ children }) {
                     <p className="text-gray-600">Checking authentication...</p>
                 </div>
             </div>
-        )
+        );
     }
 
     return (
@@ -174,7 +207,8 @@ export default function AdminDashboardLayout({ children }) {
                                     className="h-10 w-10 object-contain"
                                 />
                             </div>
-                        )}    </div>
+                        )}
+                    </div>
 
                     {/* Desktop Collapse Toggle */}
                     <div className="hidden lg:flex justify-end p-2 border-b border-slate-700 bg-slate-900/30">
