@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Showcase</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+          }
+          
+        /* === PALETTE 1: Modern Professional === */
+        .palette1 {
+            --primary-color: #007BFF;    /* Blue */
+            --secondary-color: #34C759;  /* Green */
+            --neutral-light: #F4F4F4;    /* Light Gray */
+            --neutral-dark: #2D2D2D;     /* Dark Gray */
+            --accent-color: #FFB822;     /* Orange */
+        }
+
+        /* === PALETTE 2: Energetic and Clean === */
+        .palette2 {
+            --primary-color: #FF5722;    /* Orange-Red */
+            --secondary-color: #00BCD4;  /* Cyan */
+            --neutral-light: #FFFFFF;    /* White */
+            --neutral-medium: #E0E0E0;   /* Light Gray */
+            --accent-color: #4CAF50;     /* Green */
+        }
+
+        /* === PALETTE 3: Sporty and Trustworthy === */
+        .palette3 {
+            --primary-color: #2196F3;    /* Blue */
+            --secondary-color: #FF9800;  /* Deep Orange */
+            --neutral-light: #FAFAFA;    /* Light Gray */
+            --neutral-medium: #BDBDBD;   /* Medium Gray */
+            --accent-color: #9C27B0;     /* Purple */
+        }
+
+        /* === PALETTE 4: Elegant and Bold === */
+        .palette4 {
+            --primary-color: #2C3E50;    /* Dark Blue */
+            --secondary-color: #8E44AD;  /* Purple */
+            --neutral-light: #FDFEFE;    /* Light Gray */
+            --neutral-dark: #34495E;     /* Dark Gray */
+            --accent-color: #F39C12;     /* Gold */
+        }
+
+        /* === PALETTE 5: Fresh and Minimal === */
+        .palette5 {
+            --primary-color: #27AE60;    /* Green */
+            --secondary-color: #16A085;  /* Teal */
+            --neutral-light: #ECF0F1;    /* Light Gray */
+            --neutral-dark: #2C3E50;     /* Dark Blue */
+            --accent-color: #E74C3C;     /* Red */
+        }
+
+        /* === PALETTE 6: Tech and Futuristic === */
+        .palette6 {
+            --primary-color: #00BFA5;    /* Teal */
+            --secondary-color: #8C9EFF;  /* Light Blue */
+            --neutral-light: #F5F5F5;    /* Light Gray */
+            --neutral-dark: #424242;     /* Dark Gray */
+            --accent-color: #FF4081;     /* Pink */
+        }
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--neutral-light);
+        }
+
+        header {
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            font-size: 2rem;
+            background-color: var(--primary-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--neutral-dark);
+            padding: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-weight: bold;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            margin-top: 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        footer {
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            background-color: var(--neutral-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Palette Sections -->
+    <div class="palette1">
+        <header>Modern Professional</header>
+        <nav>
+            <a href="#">Home</a><a href="#">About</a><a href="#">Services</a><a href="#">Contact</a>
+        </nav>
+        <section class="content">
+            <div class="card"><h3>Certification Services</h3><p>Professional certifications for your sports equipment.</p><button class="btn">Learn More</button></div>
+        </section>
+        <footer>© 2024 Modern Professional</footer>
+    </div>
+
+    <div class="palette2">
+        <header>Energetic and Clean</header>
+        <nav>
+            <a href="#">Home</a><a href="#">About</a><a href="#">Services</a><a href="#">Contact</a>
+        </nav>
+        <section class="content">
+            <div class="card"><h3>Certification Packages</h3><p>Tailored packages for equipment manufacturers.</p><button class="btn">View Packages</button></div>
+        </section>
+        <footer>© 2024 Energetic and Clean</footer>
+    </div>
+
+    <div class="palette3">
+        <header>Sporty and Trustworthy</header>
+        <nav>
+            <a href="#">Home</a><a href="#">About</a><a href="#">Services</a><a href="#">Contact</a>
+        </nav>
+        <section class="content">
+            <div class="card"><h3>Trusted Certifications</h3><p>Global compliance and trusted services.</p><button class="btn">Get Certified</button></div>
+        </section>
+        <footer>© 2024 Sporty and Trustworthy</footer>
+    </div>
+
+    <div class="palette4">
+        <header>Elegant and Bold</header>
+        <section class="content">
+            <div class="card"><h3>Elegant Solutions</h3><p>Bold and elegant designs for equipment.</p><button class="btn">Discover</button></div>
+        </section>
+        <footer>© 2024 Elegant and Bold</footer>
+    </div>
+
+    <div class="palette5">
+        <header>Fresh and Minimal</header>
+        <section class="content">
+            <div class="card"><h3>Minimalist Design</h3><p>Fresh, clean, and functional interfaces.</p><button class="btn">Explore</button></div>
+        </section>
+        <footer>© 2024 Fresh and Minimal</footer>
+    </div>
+
+    <div class="palette6">
+        <header>Tech and Futuristic</header>
+        <section class="content">
+            <div class="card"><h3>Future Ready</h3><p>Modern tech-driven certification services.</p><button class="btn">Start Now</button></div>
+        </section>
+        <footer>© 2024 Tech and Futuristic</footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,830 @@
+[
+  {
+    "invoiceNumber": "26-27/001",
+    "invoiceDate": "28 Mar 2026",
+    "orderId": "BST-260328-7II",
+    "orderDate": "2026-03-28",
+    "customer": {
+      "name": "Mr Prateek Jain",
+      "company": "Sri Jain Pharmacy",
+      "email": "srijainpharmacy9@gmail.com",
+      "contact": "8885550222",
+      "address": "54/B1, IDA Kattedan, Hyderabad-500077",
+      "state": "Telangana",
+      "stateCode": "36",
+      "gstin": "36ADTFS9804L1Z5"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "SMASH",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Razorpay"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 1020,
+      "taxableAmountINR": 52020,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 9363.6,
+      "totalTaxINR": 9363.6,
+      "roundOffINR": 0.4000000000014552,
+      "finalTotalINR": 61384
+    },
+    "pdfFile": "Invoice_26-27-001_BST-260328-7II.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/002",
+    "invoiceDate": "29 May 2026",
+    "orderId": "BST-260529-51B",
+    "orderDate": "2026-05-29",
+    "customer": {
+      "name": "George John",
+      "company": "Attivi Life",
+      "email": "george@attivilife.com",
+      "contact": "9895188998",
+      "address": "ATTIVI, Ground Floor, Shanti Niketan, 39th Cross Rd, 8th Block, Jayanagar, Bengaluru, Karnataka 560070",
+      "state": "Karnataka",
+      "stateCode": "29",
+      "gstin": "29ACJFA8057A1ZE"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "FORGE T7",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-PDL-2627-0002",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 9180,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-002_BST-260529-51B.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/003",
+    "invoiceDate": "08 Aug 2026",
+    "orderId": "BST-260804-Z34",
+    "orderDate": "2026-08-08",
+    "customer": {
+      "name": "Aaryaman Modi",
+      "company": "Aerix Sports",
+      "email": "aaryamanmodi@outlook.com",
+      "contact": "+919830777212",
+      "address": "Aaryaman Enterprise, 31, Ganesh Chandra Avenue, Elegance Building, 3rd Floor, Kolkata - 700013",
+      "state": "West Bengal",
+      "stateCode": "19",
+      "gstin": "GHNPM5000A1ZL"
+    },
+    "order": {
+      "category": "Ball",
+      "model": "Volt - 40",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-BLL-2627-0002",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 21000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 21000,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 3780,
+      "totalTaxINR": 3780,
+      "roundOffINR": 0,
+      "finalTotalINR": 24780
+    },
+    "pdfFile": "Invoice_26-27-003_BST-260804-Z34.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/004",
+    "invoiceDate": "08 Aug 2026",
+    "orderId": "BST-260804-3VW",
+    "orderDate": "2026-08-08",
+    "customer": {
+      "name": "Aaryaman Modi",
+      "company": "Aerix Sports",
+      "email": "aaryamanmodi@outlook.com",
+      "contact": "+919830777212",
+      "address": "Aaryaman Enterprise, 31, Ganesh Chandra Avenue, Elegance Building, 3rd Floor, Kolkata - 700013",
+      "state": "West Bengal",
+      "stateCode": "19",
+      "gstin": "GHNPM5000A1ZL"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Forge Nova",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-PDL-2627-0003",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 9180,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-004_BST-260804-3VW.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/005",
+    "invoiceDate": "08 Aug 2026",
+    "orderId": "BST-260804-9QB",
+    "orderDate": "2026-08-08",
+    "customer": {
+      "name": "Aaryaman Modi",
+      "company": "Aerix Sports",
+      "email": "aaryamanmodi@outlook.com",
+      "contact": "+919830777212",
+      "address": "Aaryaman Enterprise, 31, Ganesh Chandra Avenue, Elegance Building, 3rd Floor, Kolkata - 700013",
+      "state": "West Bengal",
+      "stateCode": "19",
+      "gstin": "GHNPM5000A1ZL"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Apex Plasma",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-PDL-2627-0007",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 9180,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-005_BST-260804-9QB.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/006",
+    "invoiceDate": "08 Aug 2026",
+    "orderId": "BST-260804-UAZ",
+    "orderDate": "2026-08-08",
+    "customer": {
+      "name": "Aaryaman Modi",
+      "company": "Aerix Sports",
+      "email": "aaryamanmodi@outlook.com",
+      "contact": "+919830777212",
+      "address": "Aaryaman Enterprise, 31, Ganesh Chandra Avenue, Elegance Building, 3rd Floor, Kolkata - 700013",
+      "state": "West Bengal",
+      "stateCode": "19",
+      "gstin": "GHNPM5000A1ZL"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Apex Ion",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-PDL-2627-0006",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 9180,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-006_BST-260804-UAZ.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/007",
+    "invoiceDate": "08 Aug 2026",
+    "orderId": "BST-260804-V9G",
+    "orderDate": "2026-08-08",
+    "customer": {
+      "name": "Aaryaman Modi",
+      "company": "Aerix Sports",
+      "email": "aaryamanmodi@outlook.com",
+      "contact": "+919830777212",
+      "address": "Aaryaman Enterprise, 31, Ganesh Chandra Avenue, Elegance Building, 3rd Floor, Kolkata - 700013",
+      "state": "West Bengal",
+      "stateCode": "19",
+      "gstin": "GHNPM5000A1ZL"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Forge Pulsar",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-PDL-2627-0004",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 9180,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-007_BST-260804-V9G.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/008",
+    "invoiceDate": "08 Aug 2026",
+    "orderId": "BST-260804-WZ3",
+    "orderDate": "2026-08-08",
+    "customer": {
+      "name": "Aaryaman Modi",
+      "company": "Aerix Sports",
+      "email": "aaryamanmodi@outlook.com",
+      "contact": "+919830777212",
+      "address": "Aaryaman Enterprise, 31, Ganesh Chandra Avenue, Elegance Building, 3rd Floor, Kolkata - 700013",
+      "state": "West Bengal",
+      "stateCode": "19",
+      "gstin": "GHNPM5000A1ZL"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Origin Atom",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-PDL-2627-0005",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": false,
+      "cgstINR": 0,
+      "sgstINR": 0,
+      "igstINR": 9180,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-008_BST-260804-WZ3.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/009",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260713-RHD",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "TechTorsion Ignite",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-009_BST-260713-RHD.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/010",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260713-4U8",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "TechTorsion Ignite",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-010_BST-260713-4U8.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/011",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260713-K87",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "TechTorshion Apex",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-011_BST-260713-K87.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/012",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260713-Q22",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "TechToshion Apex",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-012_BST-260713-Q22.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/013",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260717-66C",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Xentric Apex",
+      "status": "Samples received, testing in 72 hrs",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-013_BST-260717-66C.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/014",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260717-OIC",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Xentric Apex",
+      "status": "Samples received, testing in 72 hrs",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-014_BST-260717-OIC.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/015",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260717-ROR",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Xentric Ignite",
+      "status": "Samples received, testing in 72 hrs",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-015_BST-260717-ROR.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/016",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260717-SG0",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Xentric Ignite",
+      "status": "Samples received, testing in 72 hrs",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-016_BST-260717-SG0.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/017",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260717-T1E",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "SpinXel Ignite",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-017_BST-260717-T1E.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/018",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260717-X5M",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "SpinXel Ignite",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-018_BST-260717-X5M.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/019",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260910-80Y",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Aerolight Ignite",
+      "status": "Certification Completed",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-019_BST-260910-80Y.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/020",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260910-HSR",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Ball",
+      "model": "Spin Core",
+      "status": "Samples received, testing in 72 hrs",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 21000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 21000,
+      "isMaharashtra": true,
+      "cgstINR": 1890,
+      "sgstINR": 1890,
+      "igstINR": 0,
+      "totalTaxINR": 3780,
+      "roundOffINR": 0,
+      "finalTotalINR": 24780
+    },
+    "pdfFile": "Invoice_26-27-020_BST-260910-HSR.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/021",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260910-4SE",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Paddle",
+      "model": "Aerolight Ignite",
+      "status": "Certification Completed",
+      "certificateNumber": "BST-AIPA-PDL-2627-0008",
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 51000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 51000,
+      "isMaharashtra": true,
+      "cgstINR": 4590,
+      "sgstINR": 4590,
+      "igstINR": 0,
+      "totalTaxINR": 9180,
+      "roundOffINR": 0,
+      "finalTotalINR": 60180
+    },
+    "pdfFile": "Invoice_26-27-021_BST-260910-4SE.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/022",
+    "invoiceDate": "10 Sept 2026",
+    "orderId": "BST-260910-HK5",
+    "orderDate": "2026-09-10",
+    "customer": {
+      "name": "Shweta Singh",
+      "company": "SKECHERS SOUTH ASIA PRIVATE LIMITED",
+      "email": "shweta.singh@skechers.com",
+      "contact": "+91 9667374836",
+      "address": "803 & 804, 8TH FLOOR, FULCRUM B WING, CTS NO. 48, SAHAR ROAD, NEXT TO HYATT REGENCY, ANDHERI ( E ), MUMBAI, MAHARASHTRA- 400099",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "27AARCS3638L1ZM"
+    },
+    "order": {
+      "category": "Ball",
+      "model": "Spin Core",
+      "status": "Samples received, testing in 72 hrs",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 21000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 21000,
+      "isMaharashtra": true,
+      "cgstINR": 1890,
+      "sgstINR": 1890,
+      "igstINR": 0,
+      "totalTaxINR": 3780,
+      "roundOffINR": 0,
+      "finalTotalINR": 24780
+    },
+    "pdfFile": "Invoice_26-27-022_BST-260910-HK5.pdf"
+  },
+  {
+    "invoiceNumber": "26-27/023",
+    "invoiceDate": "21 Oct 2026",
+    "orderId": "BST-SF-261021-YO1",
+    "orderDate": "2026-10-21",
+    "customer": {
+      "name": "Nikhil Abhimanyu Kawthankar",
+      "company": "Gerflor",
+      "email": "nikhil.kawthankar@gerflor.com",
+      "contact": "9833563694",
+      "address": "ZI DU BOIS DESLOTS, 26130 SAINT-PAUL-TROIS-CHATEAUX, France",
+      "state": "Maharashtra",
+      "stateCode": "27",
+      "gstin": "Company Registered Overseas"
+    },
+    "order": {
+      "category": "Flooring",
+      "model": "Recreation Leisure 45",
+      "status": "Testing complete",
+      "certificateNumber": null,
+      "paymentMode": "Bank Transfer"
+    },
+    "pricing": {
+      "baseAmountINR": 60000,
+      "processingFeeINR": 0,
+      "taxableAmountINR": 60000,
+      "isMaharashtra": true,
+      "cgstINR": 5400,
+      "sgstINR": 5400,
+      "igstINR": 0,
+      "totalTaxINR": 10800,
+      "roundOffINR": 0,
+      "finalTotalINR": 70800
+    },
+    "pdfFile": "Invoice_26-27-023_BST-SF-261021-YO1.pdf"
+  }
+]

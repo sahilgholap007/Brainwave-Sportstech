@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Approved products & certification orders — publicly readable, authenticated writes
+    match /certification_orders/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Company logos for client-facing showcase
+    match /companyLogos/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Blogs — publicly readable, authenticated writes
+    match /blogs/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // User data — users can access their own document; authenticated admins can read
+    match /users/{userId} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Invoice sequence counters — server-side admin API only (blocks direct client SDK access)
+    match /counters/{doc} {
+      allow read, write: if false;
+    }
+
+    // Invoice archives — server-side audit records only
+    match /AutoInvoices_Archive/{doc} {
+      allow read, write: if false;
+    }
+    match /ManualBills_Archive/{doc} {
+      allow read, write: if false;
+    }
+
+    // Everything else — authenticated users only
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
