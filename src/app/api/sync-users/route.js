@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getAdminApp, getAdminDb } from '@/lib/firebase-admin';
-import { getAuth } from 'firebase-admin/auth';
+import { getAdminAuth } from '@/lib/firebase-admin';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
     try {
         const adminApp = getAdminApp();
-        const auth = getAuth(adminApp);
+        const auth = getAdminAuth();
         const db = getAdminDb();
 
         const logs = [];

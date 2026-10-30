@@ -26,6 +26,13 @@ import Image from "next/image";
 import { Trash2, Upload, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+const ADMIN_EMAILS = [
+    'admin@brainwavesportstech.com',
+    'gholapsahil007@gmail.com',
+    'brainwavesportstech@gmail.com',
+    'sahil.gholap007@gmail.com',
+];
+
 const UploadLogosPage = () => {
     const [user, setUser] = useState(null);
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
@@ -52,18 +59,36 @@ const UploadLogosPage = () => {
                     return;
                 }
 
-                const token = await currentUser.getIdToken();
-                const res = await fetch("/api/admin/verify", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const email = currentUser.email?.toLowerCase();
+                const isKnownAdmin = email && ADMIN_EMAILS.includes(email);
+
+                let verified = false;
+
+                try {
+                    const token = await currentUser.getIdToken();
+                    const res = await fetch("/api/admin/verify", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.isAdmin) verified = true;
+                    } else if (res.status === 403) {
+                        verified = false;
+                    } else if (isKnownAdmin) {
+                        verified = true;
+                    }
+                } catch (fetchErr) {
+                    if (isKnownAdmin) verified = true;
+                }
 
                 if (!isMounted) return;
 
-                if (res.ok) {
+                if (verified) {
                     setUser(currentUser);
                     fetchLogos();
                     setIsCheckingAuth(false);

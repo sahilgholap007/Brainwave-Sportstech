@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server"
-import { Timestamp } from "firebase-admin/firestore"
-import { getAdminDb } from "@/lib/firebase-admin"
+import { getAdminDb, Timestamp } from "@/lib/firebase-admin"
 import { logger } from "@/lib/errorHandler"
 
 const db = getAdminDb()

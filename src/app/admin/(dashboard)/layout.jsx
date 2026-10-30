@@ -8,6 +8,13 @@ import { LayoutDashboard, Package, LogOut, Menu, X, ChevronLeft, ChevronRight, I
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
+const ADMIN_EMAILS = [
+    'admin@brainwavesportstech.com',
+    'gholapsahil007@gmail.com',
+    'brainwavesportstech@gmail.com',
+    'sahil.gholap007@gmail.com',
+];
+
 export default function AdminDashboardLayout({ children }) {
     const [isCheckingAuth, setIsCheckingAuth] = useState(true)
     const [user, setUser] = useState(null)
@@ -35,23 +42,50 @@ export default function AdminDashboardLayout({ children }) {
                     return;
                 }
 
-                // Server-side admin verification
-                const token = await currentUser.getIdToken();
-                const res = await fetch("/api/admin/verify", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const email = currentUser.email?.toLowerCase();
+                const isKnownAdmin = email && ADMIN_EMAILS.includes(email);
+
+                let verified = false;
+
+                try {
+                    // Server-side admin verification
+                    const token = await currentUser.getIdToken();
+                    const res = await fetch("/api/admin/verify", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.isAdmin) {
+                            verified = true;
+                        }
+                    } else if (res.status === 403) {
+                        // Forbidden
+                        verified = false;
+                    } else {
+                        // Server returned 500 or cold start error - fallback to verified admin list
+                        if (isKnownAdmin) {
+                            console.warn("Server verify returned status " + res.status + ", allowing authorized admin: " + email);
+                            verified = true;
+                        }
+                    }
+                } catch (fetchErr) {
+                    console.warn("Verification network error:", fetchErr);
+                    if (isKnownAdmin) {
+                        verified = true;
+                    }
+                }
 
                 if (!isMounted) return;
 
-                if (res.ok) {
+                if (verified) {
                     setUser(currentUser);
                     setIsCheckingAuth(false);
                 } else {
-                    // Server rejected — authenticated user is not an admin
                     console.warn("User is not an authorized admin, redirecting to home");
                     router.push("/?error=not_admin");
                 }

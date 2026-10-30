@@ -1,6 +1,4 @@
-import { initializeApp, getApps, cert } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
-import { getAuth } from 'firebase-admin/auth';
+import admin from 'firebase-admin';
 
 /**
  * Centralized Firebase Admin SDK initialization
@@ -17,17 +15,27 @@ let adminAuth = null;
  */
 export function getAdminApp() {
     if (!adminApp) {
-        const apps = getApps();
+        const apps = admin.apps;
 
-        if (apps.length === 0) {
-            // Initialize new app
-            adminApp = initializeApp({
-                credential: cert({
-                    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-                    clientEmail: process.env.F_CLIENT_EMAIL,
-                    privateKey: process.env.F_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-                }),
-            });
+        if (!apps || apps.length === 0) {
+            const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'brainwave-sportstech';
+            const clientEmail = process.env.F_CLIENT_EMAIL;
+            const privateKey = process.env.F_PRIVATE_KEY?.replace(/\\n/g, '\n');
+
+            if (clientEmail && privateKey) {
+                adminApp = admin.initializeApp({
+                    credential: admin.credential.cert({
+                        projectId,
+                        clientEmail,
+                        privateKey,
+                    }),
+                });
+            } else {
+                // In Cloud Run / Firebase Functions, use default ambient credentials if available
+                adminApp = admin.initializeApp({
+                    projectId,
+                });
+            }
         } else {
             // Use existing app
             adminApp = apps[0];
@@ -43,18 +51,16 @@ export function getAdminApp() {
  */
 export function getAdminDb() {
     if (!adminDb) {
-        const PROD_DB_ID = "(default)";
+        const app = getAdminApp();
         const envDbId = process.env.NEXT_PUBLIC_FIREBASE_DB_ID;
-        // In production runtime, force (default) database (undefined in Admin SDK)
         const isProd = process.env.NODE_ENV === "production" && !process.env.FORCE_STAGING_DB;
-        // In prod or when envDbId is "(default)"/unset, targetId is undefined -> connects to (default)
         const targetId = isProd 
             ? undefined 
             : (envDbId && envDbId !== "(default)" ? envDbId : undefined);
 
         adminDb = targetId 
-            ? getFirestore(getAdminApp(), targetId) 
-            : getFirestore(getAdminApp());
+            ? admin.firestore(app, targetId) 
+            : admin.firestore(app);
     }
     return adminDb;
 }
@@ -65,7 +71,7 @@ export function getAdminDb() {
  */
 export function getAdminAuth() {
     if (!adminAuth) {
-        adminAuth = getAuth(getAdminApp());
+        adminAuth = admin.auth(getAdminApp());
     }
     return adminAuth;
 }
@@ -89,3 +95,7 @@ export async function getUserByUid(uid) {
     const auth = getAdminAuth();
     return await auth.getUser(uid);
 }
+
+export const Timestamp = admin.firestore.Timestamp;
+export const FieldValue = admin.firestore.FieldValue;
+export default admin;

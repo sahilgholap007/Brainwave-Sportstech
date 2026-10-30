@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server"
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib"
 import QRCode from "qrcode"
-import { getAdminDb } from "@/lib/firebase-admin"
-import { Timestamp } from "firebase-admin/firestore"
+import { getAdminDb, Timestamp } from "@/lib/firebase-admin"
 import fs from "fs"
 import path from "path"
 
