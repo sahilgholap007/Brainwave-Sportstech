@@ -81,12 +81,12 @@ export async function POST(req) {
     const order = orderSnap.data()
     const category = order.category || order.type
 
-    if (category !== "Paddle" && category !== "Ball" && category !== "Flooring") {
-      return NextResponse.json({ message: "Certificates only available for Paddle, Ball, and Flooring" }, { status: 400 })
+    if (category !== "Paddle" && category !== "Ball" && category !== "Flooring" && category !== "Court") {
+      return NextResponse.json({ message: "Certificates only available for Paddle, Ball, Flooring, and Court" }, { status: 400 })
     }
 
     // Determine type code
-    const typeCode = category === "Paddle" ? "PDL" : category === "Flooring" ? "FLR" : "BLL"
+    const typeCode = category === "Paddle" ? "PDL" : category === "Ball" ? "BLL" : category === "Court" ? "CRT" : "FLR"
     const financialYear = getFinancialYear()
 
     let certificateNumber = order.certificateNumber
@@ -162,7 +162,7 @@ export async function POST(req) {
     let templateFilename = "certificate-paddle.png"
     if (category === "Ball") {
       templateFilename = "certificate-ball.png"
-    } else if (category === "Flooring") {
+    } else if (category === "Flooring" || category === "Court") {
       templateFilename = "certificate-flooring.png"
     }
 
@@ -202,7 +202,7 @@ export async function POST(req) {
 
     const companyName = rawCompanyName.toUpperCase()
     const modelName = rawModelName.toUpperCase()
-    const categoryDisplay = category === "Flooring" ? "SPORTS FLOORING" : category === "Ball" ? "PICKLEBALL BALL" : "PICKLEBALL PADDLE"
+    const categoryDisplay = category === "Flooring" || category === "Court" ? "SPORTS FLOORING" : category === "Ball" ? "PICKLEBALL BALL" : "PICKLEBALL PADDLE"
 
     // Row 3 values depending on category
     let row3Col1Value = "N/A"
@@ -220,7 +220,7 @@ export async function POST(req) {
       // Col 1: Type of Use, Col 2: Number of Holes
       row3Col1Value = (order.useType || order.typeOfUse || order?.ballDetails?.useType || "Indoor").toUpperCase()
       row3Col2Value = (order.numberOfHoles || order?.ballDetails?.numberOfHoles || "N/A").toString().toUpperCase()
-    } else if (category === "Flooring") {
+    } else if (category === "Flooring" || category === "Court") {
       // Col 1: Type of Use, Col 2: Thickness
       row3Col1Value = (order.useType || order.typeOfUse || "Indoor").toUpperCase()
       let flooringThickness = order.totalThickness || order.thickness || order.flooringThickness
