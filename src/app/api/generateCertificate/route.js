@@ -131,19 +131,27 @@ export async function POST(req) {
     
     const issueDate = issueDateObj.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" });
     
-    // Add 3 years minus 1 day for expiry
+    // Validity duration: 5 years minus 1 day for Flooring & Court, 3 years minus 1 day for Paddle & Ball
+    const isFiveYearCert = category === "Flooring" || category === "Court" || (typeof category === "string" && (category.toLowerCase().includes("floor") || category.toLowerCase().includes("court")));
+    const validityYears = isFiveYearCert ? 5 : 3;
+
     const expiryDateObj = new Date(issueDateObj);
-    expiryDateObj.setFullYear(expiryDateObj.getFullYear() + 3);
+    expiryDateObj.setFullYear(expiryDateObj.getFullYear() + validityYears);
     expiryDateObj.setDate(expiryDateObj.getDate() - 1);
     const expiryDate = expiryDateObj.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" });
 
-    // Update order with cert details if new
+    // Update order with cert details if new or if certificateExpiryDate needs syncing
+    const certUpdates = {}
     if (!order.certificateNumber) {
-      await orderRef.update({
-        certificateNumber,
-        certificateGeneratedAt: Timestamp.now(),
-        certificateExpiryDate: expiryDate
-      })
+      certUpdates.certificateNumber = certificateNumber
+      certUpdates.certificateGeneratedAt = Timestamp.now()
+      certUpdates.certificateExpiryDate = expiryDate
+    } else if (order.certificateExpiryDate !== expiryDate) {
+      certUpdates.certificateExpiryDate = expiryDate
+    }
+
+    if (Object.keys(certUpdates).length > 0) {
+      await orderRef.update(certUpdates)
     }
 
     // Generate QR Code
