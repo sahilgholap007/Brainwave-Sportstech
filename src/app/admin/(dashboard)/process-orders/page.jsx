@@ -344,8 +344,14 @@ const ProcessOrders = () => {
       })
 
       if (!response.ok) {
-        const errData = await response.json()
-        throw new Error(errData.message || "Failed to generate certificate")
+        let errMsg = "Failed to generate certificate"
+        try {
+          const errData = await response.json()
+          errMsg = errData.message || errMsg
+        } catch (e) {
+          errMsg = `Server error (${response.status}): ${response.statusText || "Internal Server Error"}`
+        }
+        throw new Error(errMsg)
       }
 
       const blob = await response.blob()
@@ -724,8 +730,13 @@ const ProcessOrders = () => {
       if (emailResponse.ok) {
         toast.success("Order updated & Email sent!")
       } else {
-        console.error("Email failed")
-        toast.success("Order updated (Email failed)")
+        let errDetail = ""
+        try {
+          const errJson = await emailResponse.json()
+          errDetail = errJson.message || errJson.error || ""
+        } catch (e) {}
+        console.error("Email failed:", errDetail)
+        toast.error(`Order status updated, but email failed: ${errDetail || "Server error"}`)
       }
 
     } catch (error) {

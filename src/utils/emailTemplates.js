@@ -538,6 +538,7 @@ export function generateEmailTemplate(status, ctx) {
           ${footerStyles}`,
             }
 
+        case "Certification completed":
         case "Certification Completed":
             return {
                 subject: `🎉 Certification Complete - Your Official Certificate is Ready! - Order #${ctx.orderId}`,

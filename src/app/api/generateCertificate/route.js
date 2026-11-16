@@ -166,8 +166,20 @@ export async function POST(req) {
       templateFilename = "certificate-flooring.png"
     }
 
+    let templateBytes
     const templatePath = path.join(process.cwd(), 'public', 'images', 'certificates', templateFilename)
-    const templateBytes = fs.readFileSync(templatePath)
+    if (fs.existsSync(templatePath)) {
+      templateBytes = fs.readFileSync(templatePath)
+    } else {
+      // In serverless / Cloud Run containers where public/ is hosted on CDN
+      const cdnUrl = `https://brainwavesportstech.com/images/certificates/${templateFilename}`
+      const cdnRes = await fetch(cdnUrl)
+      if (!cdnRes.ok) {
+        throw new Error(`Failed to load certificate template from ${cdnUrl}: ${cdnRes.statusText}`)
+      }
+      const arrayBuffer = await cdnRes.arrayBuffer()
+      templateBytes = Buffer.from(arrayBuffer)
+    }
 
     // Build PDF
     const pdfDoc = await PDFDocument.create()
