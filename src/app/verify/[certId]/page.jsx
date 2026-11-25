@@ -46,11 +46,17 @@ async function getCertificate(certId) {
         issueDate = new Date(order.dateOfCertification).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })
     }
 
+    let rawModel = order.productTradeName || order.productName || order.modelName || "N/A"
+    const modelNum = (order.modelNumber || order?.ballDetails?.modelNumber || order?.paddleDetails?.modelNumber || "").toString().trim()
+    if (modelNum && modelNum.toUpperCase() !== "N/A" && !rawModel.toUpperCase().includes(modelNum.toUpperCase())) {
+      rawModel = `${rawModel} (${modelNum})`
+    }
+
     return {
       certificateNumber: order.certificateNumber,
       category: order.category || order.type,
       companyName: order.companyName || order.flooringManufacturer || order.manufacturer || order.name || "N/A",
-      modelName: order.productTradeName || order.productName || order.modelName || "N/A",
+      modelName: rawModel,
       country: order.country || "India",
       testingManual: order.testingManual || "AIPA Laboratory Testing Manual",
       standardsUsed: order.standardsUsed || null,

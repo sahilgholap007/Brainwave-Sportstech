@@ -222,9 +222,13 @@ export async function POST(req) {
 
     const rawCompanyName = order.companyName || order.flooringManufacturer || order.manufacturerFacility || order.manufacturer || order.name || "N/A"
     const rawModelName = order.productTradeName || order.productName || order.modelName || order.ballModelName || order?.ballDetails?.modelName || "N/A"
+    const rawModelNumber = (order.modelNumber || order?.ballDetails?.modelNumber || order?.paddleDetails?.modelNumber || "").toString().trim()
 
     const companyName = rawCompanyName.toUpperCase()
-    const modelName = rawModelName.toUpperCase()
+    let modelName = rawModelName.toUpperCase()
+    if (rawModelNumber && rawModelNumber.toUpperCase() !== "N/A" && !modelName.includes(rawModelNumber.toUpperCase())) {
+      modelName = `${modelName} (${rawModelNumber.toUpperCase()})`
+    }
     const categoryDisplay = category === "Flooring" || category === "Court" ? "SPORTS FLOORING" : category === "Ball" ? "PICKLEBALL BALL" : "PICKLEBALL PADDLE"
 
     // Row 3 values depending on category
