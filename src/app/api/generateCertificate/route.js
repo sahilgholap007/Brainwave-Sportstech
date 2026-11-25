@@ -166,34 +166,49 @@ export async function POST(req) {
       }
     })
 
-    // Select template based on category
-    let templateFilename = "certificate-paddle.png"
+    // Select template based on category (JPEG preferred for optimal file size and fast generation)
+    let templateFilename = "certificate-paddle.jpg"
     if (category === "Ball") {
-      templateFilename = "certificate-ball.png"
+      templateFilename = "certificate-ball.jpg"
     } else if (category === "Flooring" || category === "Court") {
-      templateFilename = "certificate-flooring.png"
+      templateFilename = "certificate-flooring.jpg"
     }
 
     let templateBytes
-    const templatePath = path.join(process.cwd(), 'public', 'images', 'certificates', templateFilename)
+    let templatePath = path.join(process.cwd(), 'public', 'images', 'certificates', templateFilename)
     if (fs.existsSync(templatePath)) {
       templateBytes = fs.readFileSync(templatePath)
     } else {
-      // In serverless / Cloud Run containers where public/ is hosted on CDN
-      const cdnUrl = `https://brainwavesportstech.com/images/certificates/${templateFilename}`
-      const cdnRes = await fetch(cdnUrl)
-      if (!cdnRes.ok) {
-        throw new Error(`Failed to load certificate template from ${cdnUrl}: ${cdnRes.statusText}`)
+      // Check for .png fallback locally
+      const pngFallback = templateFilename.replace(/\.jpg$/, '.png')
+      const pngPath = path.join(process.cwd(), 'public', 'images', 'certificates', pngFallback)
+      if (fs.existsSync(pngPath)) {
+        templateFilename = pngFallback
+        templateBytes = fs.readFileSync(pngPath)
+      } else {
+        // In serverless / Cloud Run containers where public/ is hosted on CDN
+        let cdnUrl = `https://brainwavesportstech.com/images/certificates/${templateFilename}`
+        let cdnRes = await fetch(cdnUrl)
+        if (!cdnRes.ok) {
+          // Fallback to .png on CDN
+          cdnUrl = `https://brainwavesportstech.com/images/certificates/${pngFallback}`
+          cdnRes = await fetch(cdnUrl)
+          if (!cdnRes.ok) {
+            throw new Error(`Failed to load certificate template from ${cdnUrl}: ${cdnRes.statusText}`)
+          }
+          templateFilename = pngFallback
+        }
+        const arrayBuffer = await cdnRes.arrayBuffer()
+        templateBytes = Buffer.from(arrayBuffer)
       }
-      const arrayBuffer = await cdnRes.arrayBuffer()
-      templateBytes = Buffer.from(arrayBuffer)
     }
 
     // Build PDF
     const pdfDoc = await PDFDocument.create()
     const page = pdfDoc.addPage([3508, 2480]) // A4 Landscape @ 300dpi
     
-    const bgImage = await pdfDoc.embedPng(templateBytes)
+    const isJpg = templateFilename.endsWith('.jpg') || templateFilename.endsWith('.jpeg')
+    const bgImage = isJpg ? await pdfDoc.embedJpg(templateBytes) : await pdfDoc.embedPng(templateBytes)
     page.drawImage(bgImage, {
       x: 0,
       y: 0,
@@ -307,11 +322,14 @@ export async function POST(req) {
     })
 
     const pdfBytes = await pdfDoc.save()
+    const pdfBuffer = Buffer.from(pdfBytes)
 
-    return new NextResponse(pdfBytes, {
+    return new NextResponse(pdfBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
+        "Content-Length": pdfBuffer.length.toString(),
+        "Content-Disposition": `attachment; filename="Certificate_${certificateNumber}.pdf"`,
         "X-Certificate-Number": certificateNumber
       }
     })
