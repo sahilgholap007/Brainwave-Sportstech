@@ -227,7 +227,7 @@ export async function POST(req) {
     const companyName = rawCompanyName.toUpperCase()
     let modelName = rawModelName.toUpperCase()
     if (rawModelNumber && rawModelNumber.toUpperCase() !== "N/A" && !modelName.includes(rawModelNumber.toUpperCase())) {
-      modelName = `${modelName} (${rawModelNumber.toUpperCase()})`
+      modelName = `${modelName} ${rawModelNumber.toUpperCase()}`
     }
     const categoryDisplay = category === "Flooring" || category === "Court" ? "SPORTS FLOORING" : category === "Ball" ? "PICKLEBALL BALL" : "PICKLEBALL PADDLE"
 

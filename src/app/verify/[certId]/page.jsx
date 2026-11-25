@@ -49,7 +49,7 @@ async function getCertificate(certId) {
     let rawModel = order.productTradeName || order.productName || order.modelName || "N/A"
     const modelNum = (order.modelNumber || order?.ballDetails?.modelNumber || order?.paddleDetails?.modelNumber || "").toString().trim()
     if (modelNum && modelNum.toUpperCase() !== "N/A" && !rawModel.toUpperCase().includes(modelNum.toUpperCase())) {
-      rawModel = `${rawModel} (${modelNum})`
+      rawModel = `${rawModel} ${modelNum}`
     }
 
     return {
